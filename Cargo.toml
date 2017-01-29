@@ -1,0 +1,13 @@
+[package]
+name = "rust-snake"
+version = "0.1.0"
+authors = ["Gordon Martin <gordon.hugh.martin@gmail.com>"]
+
+[[bin]]
+name="rust-snake"
+
+[dependencies]
+piston = "0.31.1"
+piston2d-graphics = "0.20.0"
+pistoncore-glutin_window = "0.35.0"
+piston2d-opengl_graphics = "0.39.0"
