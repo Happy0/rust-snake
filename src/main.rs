@@ -2,12 +2,15 @@ extern crate piston;
 extern crate graphics;
 extern crate glutin_window;
 extern crate opengl_graphics;
+extern crate rand;
 
 use piston::window::WindowSettings;
 use piston::event_loop::*;
 use piston::input::*;
 use glutin_window::GlutinWindow as Window;
 use opengl_graphics::{ GlGraphics, OpenGL };
+
+mod game_model;
 
 pub struct App {
     gl: GlGraphics, // OpenGL drawing backend.
@@ -38,6 +41,8 @@ fn main() {
     };
 
     let mut events = Events::new(EventSettings::new());
+
+    //let mut game_model = game_model::Arena::new(50);
 
     loop {
         let nextFrame : Option<Input> = events.next(&mut window);
