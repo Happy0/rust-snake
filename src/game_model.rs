@@ -6,7 +6,7 @@ pub enum Direction {
     Up,
     Down,
     Left,
-    Right
+    Right,
 }
 
 // A cell in the arena is either empty, occupied by a snake part (with a direction the
@@ -15,21 +15,21 @@ pub enum Direction {
 pub enum ArenaCell {
     Empty,
     Food,
-    SnakePart {direction: Direction }
+    SnakePart(Direction),
 }
 
 // A cell locaiton in the arena
 #[derive(Clone, Copy)]
 pub struct CellLocation {
     x: usize,
-    y: usize
+    y: usize,
 }
 
 pub struct Arena {
-        cells: Vec<Vec<ArenaCell>>,
-        snakeHead : CellLocation,
-        snakeTail : CellLocation,
-        length: usize
+    cells: Vec<Vec<ArenaCell>>,
+    snakeHead: CellLocation,
+    snakeTail: CellLocation,
+    length: usize,
 }
 
 fn get_arena_centre(arena_length: usize) -> CellLocation {
@@ -37,34 +37,38 @@ fn get_arena_centre(arena_length: usize) -> CellLocation {
     CellLocation { x: mid, y: mid }
 }
 
-fn add_food_random_cell(arena: &mut Vec<Vec<ArenaCell>>) {
+fn add_food_random_cell(arena: &mut Vec<Vec<ArenaCell>>) {}
 
+fn modify_arena_cell(arena: &mut Vec<Vec<ArenaCell>>, location: CellLocation, value: ArenaCell) {
+    let CellLocation { x, y } = location;
+
+    if let Some(startCell) = arena.get_mut(x).and_then(|row| row.get_mut(y)) {
+        *startCell = value;
+    } else {
+        panic!("eeeeee");
+    }
 }
 
 fn create_empty_cell_grid(length: usize) -> Vec<Vec<ArenaCell>> {
-    (0 .. length).map(|_|
-        (0 .. length).map(|_| ArenaCell::Empty ).collect()
-    ).collect()
+    vec![vec![ArenaCell::Empty; length]; length]
 }
 
 impl Arena {
     fn new(length: usize) -> Arena {
-        let mut cells = create_empty_cell_grid(length);
+        let mut arena = create_empty_cell_grid(length);
         let startLocation = get_arena_centre(length);
 
-        let CellLocation { x, y } = startLocation;
-
-        if let Some(startCell) = cells.get_mut(x).and_then(|row| row.get_mut(y)) {
-            *startCell = ArenaCell::SnakePart { direction:Direction::Right }
-        }
+        modify_arena_cell(&mut arena,
+                          startLocation,
+                          ArenaCell::SnakePart(Direction::Right));
 
         //add_food_random_cell(&cells);
 
-        Arena { cells : cells,
-                snakeHead: startLocation,
-                snakeTail: startLocation,
-                length: length
-            }
+        Arena {
+            cells: arena,
+            snakeHead: startLocation,
+            snakeTail: startLocation,
+            length: length,
+        }
     }
-
 }
