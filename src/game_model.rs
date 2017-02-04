@@ -55,7 +55,7 @@ impl Arena {
         let CellLocation { x, y } = startLocation;
 
         if let Some(startCell) = cells.get_mut(x).and_then(|row| row.get_mut(y)) {
-            startCell = &mut ArenaCell::SnakePart { direction:Direction::Right }
+            *startCell = ArenaCell::SnakePart { direction:Direction::Right }
         }
 
         //add_food_random_cell(&cells);
