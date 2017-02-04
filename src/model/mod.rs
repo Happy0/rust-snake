@@ -14,10 +14,10 @@ pub enum Direction {
     Right,
 }
 
-// A cell in the arena is either empty, occupied by a snake part (with a direction the
+// A cell in the grid is either empty, occupied by a snake part (with a direction the
 // tail should continue in when it hits it), or contains a piece of food.
 #[derive(Clone)]
-pub enum ArenaCell {
+pub enum GridCell {
     Empty,
     Food,
     SnakePart(Direction),

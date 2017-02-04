@@ -1,4 +1,4 @@
-use model::{ArenaCell, CellLocation, Direction, Grid};
+use model::{CellLocation, Direction, Grid, GridCell};
 
 pub struct Arena {
     grid: Grid,
@@ -12,7 +12,7 @@ impl Arena {
         let mut grid = Grid::new(length);
         let startLocation = grid.center();
 
-        grid.modify_arena_cell(startLocation, ArenaCell::SnakePart(Direction::Right));
+        grid.modify_arena_cell(startLocation, GridCell::SnakePart(Direction::Right));
 
         //add_food_random_cell(&cells);
 
