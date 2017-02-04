@@ -10,7 +10,7 @@ use piston::input::*;
 use glutin_window::GlutinWindow as Window;
 use opengl_graphics::{GlGraphics, OpenGL};
 
-mod game_model;
+mod model;
 
 pub struct App {
     gl: GlGraphics, // OpenGL drawing backend.
