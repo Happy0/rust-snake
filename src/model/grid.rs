@@ -1,7 +1,7 @@
 use model::{ArenaCell, CellLocation};
 
 pub struct Grid {
-    cells: Vec<Vec<ArenaCell>>
+    cells: Vec<Vec<ArenaCell>>,
 }
 
 impl Grid {

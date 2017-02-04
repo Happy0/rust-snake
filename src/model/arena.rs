@@ -1,4 +1,4 @@
-use model::{ ArenaCell, CellLocation,  Direction, Grid };
+use model::{ArenaCell, CellLocation, Direction, Grid};
 
 pub struct Arena {
     grid: Grid,
