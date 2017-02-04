@@ -16,7 +16,7 @@ impl Grid {
 
     pub fn add_food_random_cell(arena: &mut Vec<Vec<GridCell>>) {}
 
-    pub fn modify_arena_cell(&mut self, location: CellLocation, value: GridCell) {
+    pub fn modify_cell(&mut self, location: CellLocation, value: GridCell) {
         let CellLocation { x, y } = location;
 
         if let Some(startCell) = self.cells.get_mut(x).and_then(|row| row.get_mut(y)) {
