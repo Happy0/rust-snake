@@ -23,6 +23,12 @@ pub enum GridCell {
     SnakePart(Direction),
 }
 
+impl GridCell {
+    pub fn change_cell(target: &mut GridCell, value: GridCell) {
+        *target = value;
+    }
+}
+
 // A cell locaiton in the arena
 #[derive(Clone, Copy)]
 pub struct CellLocation {

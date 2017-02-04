@@ -12,7 +12,12 @@ impl Arena {
         let mut grid = Grid::new(length);
         let startLocation = grid.center();
 
-        grid.modify_cell(startLocation, GridCell::SnakePart(Direction::Right));
+        if let Some(cell) = grid.get_cell_if_in_range(startLocation) {
+            GridCell::change_cell(cell, GridCell::SnakePart(Direction::Right));
+        }
+        else {
+            panic!("This shouldnae happen...");
+        }
 
         //add_food_random_cell(&cells);
 
