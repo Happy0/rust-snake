@@ -12,12 +12,15 @@ impl Arena {
         let mut grid = Grid::new(length);
         let startLocation = grid.center();
 
+        // Set the snake's initial location on the grid
         if let Some(cell) = grid.get_cell_if_in_range(startLocation) {
             cell.change_cell(GridCell::SnakePart(Direction::Right));
-        }
-        else {
+        } else {
             panic!("This shouldnae happen...");
         }
+
+        // Add the first bit of food to the grid
+        grid.add_food_random_cell();
 
         //add_food_random_cell(&cells);
 

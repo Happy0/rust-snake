@@ -31,7 +31,7 @@ impl GridCell {
     pub fn is_empty(&self) -> bool {
         match *self {
             GridCell::Empty => true,
-            _ => false
+            _ => false,
         }
     }
 }

@@ -24,10 +24,13 @@ impl Grid {
         // We collect all the empty cells in the grid that are candidates for placing the new
         // piece of food on
 
-        let mut empty_cells: Vec<&mut GridCell> = self.cells.iter_mut()
-            .flat_map(|row| row.iter_mut()
-            .filter(|cell| cell.is_empty())
-            .map(|cell| cell))
+        let mut empty_cells: Vec<&mut GridCell> = self.cells
+            .iter_mut()
+            .flat_map(|row| {
+                row.iter_mut()
+                    .filter(|cell| cell.is_empty())
+                    .map(|cell| cell)
+            })
             .collect();
 
         // Choose one of the empty cells at random
