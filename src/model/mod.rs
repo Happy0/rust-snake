@@ -27,6 +27,13 @@ impl GridCell {
     pub fn change_cell(&mut self, value: GridCell) {
         *self = value;
     }
+
+    pub fn is_empty(&self) -> bool {
+        match *self {
+            GridCell::Empty => true,
+            _ => false
+        }
+    }
 }
 
 // A cell locaiton in the arena
