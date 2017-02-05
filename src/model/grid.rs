@@ -24,17 +24,17 @@ impl Grid {
         // We collect all the empty cells in the grid that are candidates for placing the new
         // piece of food on
 
-        let empty_cells = self.cells.iter_mut().
-            flat_map(|row| row.iter_mut()
+        let mut empty_cells: Vec<&mut GridCell> = self.cells.iter_mut()
+            .flat_map(|row| row.iter_mut()
             .filter(|cell| cell.is_empty())
             .map(|cell| cell))
             .collect();
 
         // Choose one of the empty cells at random
-        let empty_cell = rand::thread_rng().choose_mut(empty_cells);
+        let empty_cell = rand::thread_rng().choose_mut(&mut empty_cells);
 
         // Change the cell to a Food cell
-        empty_cell.iter().map(|e| e.change_cell(GridCell::Food));
+        empty_cell.map(|e| e.change_cell(GridCell::Food));
     }
 
     pub fn get_cell_if_in_range(&mut self, location: CellLocation) -> Option<&mut GridCell> {
