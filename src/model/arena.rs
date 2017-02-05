@@ -13,7 +13,7 @@ impl Arena {
         let startLocation = grid.center();
 
         if let Some(cell) = grid.get_cell_if_in_range(startLocation) {
-            GridCell::change_cell(cell, GridCell::SnakePart(Direction::Right));
+            cell.change_cell(GridCell::SnakePart(Direction::Right));
         }
         else {
             panic!("This shouldnae happen...");

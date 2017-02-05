@@ -24,8 +24,8 @@ pub enum GridCell {
 }
 
 impl GridCell {
-    pub fn change_cell(target: &mut GridCell, value: GridCell) {
-        *target = value;
+    pub fn change_cell(&mut self, value: GridCell) {
+        *self = value;
     }
 }
 
