@@ -6,6 +6,7 @@ pub struct Model {
     snakeTail: CellLocation,
     direction: Direction,
     length: usize,
+    score: i32
 }
 
 impl Model {
@@ -14,7 +15,7 @@ impl Model {
         let startLocation = grid.center();
 
         // Set the snake's initial location on the grid
-        if let Some(cell) = grid.get_cell_if_in_range(startLocation) {
+        if let Some(cell) = grid.get_cell(startLocation) {
             cell.change_cell(GridCell::SnakePart);
         } else {
             panic!("This shouldnae happen...");
@@ -23,18 +24,35 @@ impl Model {
         // Add the first bit of food to the grid
         grid.add_food_random_cell();
 
-        //add_food_random_cell(&cells);
-
         Model {
             grid: grid,
+            length: length,
             snakeHead: startLocation,
             snakeTail: startLocation,
             direction: Direction::Right,
-            length: length,
+            score: 0
         }
     }
 
     pub fn change_snake_direction(&mut self, direction: Direction) {
         self.direction = direction;
+    }
+
+    //todo typedef GameOver = bool
+    pub fn game_tick(&mut self) -> bool {
+        let direction = self.direction;
+        let moved_into: Option<GridCell> = self.grid.move_snake(direction);
+
+        match moved_into {
+            Some(GridCell::Food) => {
+                self.score = self.score + 1;
+                false
+            }
+            Some(_) => false,
+            None => true
+        }
+
+
+
     }
 }

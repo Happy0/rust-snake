@@ -43,21 +43,20 @@ fn main() {
         match event {
             Input::Render(_) => {
                 // Nothing yet, because that's the hard part and i'm avoiding it ;x
-            },
+            }
             Input::Press(Keyboard(Key::W)) => {
                 game_model.change_snake_direction(model::Direction::Up)
-            },
+            }
             Input::Press(Keyboard(Key::A)) => {
                 game_model.change_snake_direction(model::Direction::Left)
-            },
+            }
             Input::Press(Keyboard(Key::S)) => {
                 game_model.change_snake_direction(model::Direction::Right)
-            },
+            }
             Input::Press(Keyboard(Key::D)) => {
                 game_model.change_snake_direction(model::Direction::Down)
-            },
-            _ => {
             }
+            _ => {}
         }
     }
 }

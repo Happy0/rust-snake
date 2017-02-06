@@ -1,4 +1,4 @@
-use model::{GridCell, CellLocation};
+use model::{CellLocation, Direction, GridCell};
 
 use rand::Rng;
 
@@ -39,7 +39,16 @@ impl Grid {
         empty_cell.map(|e| e.change_cell(GridCell::Food));
     }
 
-    pub fn get_cell_if_in_range(&mut self, location: CellLocation) -> Option<&mut GridCell> {
+    /** Moves the snake forward, returning a copy of the grid cell that the snake entered into.
+     *  If the snake enters a food cell it is returned before the cell is turned into a snake
+     *   cell for example.
+     */
+    pub fn move_snake(&mut self, direction: Direction) -> Option<GridCell> {
+        None //todo
+    }
+
+    /** Get the grid cell if it is in range otherwise return 'Nothing' */
+    pub fn get_cell(&mut self, location: CellLocation) -> Option<&mut GridCell> {
         let CellLocation { x, y } = location;
         self.cells.get_mut(x).and_then(|row| row.get_mut(y))
     }

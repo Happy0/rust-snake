@@ -7,7 +7,7 @@ pub use self::grid::Grid;
 pub use self::model::Model;
 
 // A direction that the snake head can travel in
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub enum Direction {
     Up,
     Down,
@@ -21,7 +21,7 @@ pub enum Direction {
 pub enum GridCell {
     Empty,
     Food,
-    SnakePart
+    SnakePart,
 }
 
 impl GridCell {
