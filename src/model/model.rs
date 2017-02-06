@@ -1,5 +1,7 @@
 use model::{CellLocation, Direction, Grid, GridCell};
 
+pub type GameOver = bool;
+
 pub struct Model {
     grid: Grid,
     snakeHead: CellLocation,
@@ -38,8 +40,7 @@ impl Model {
         self.direction = direction;
     }
 
-    //todo typedef GameOver = bool
-    pub fn game_tick(&mut self) -> bool {
+    pub fn game_tick(&mut self) -> GameOver {
         let direction = self.direction;
         let moved_into: Option<GridCell> = self.grid.move_snake(direction);
 
