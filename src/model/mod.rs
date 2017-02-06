@@ -1,6 +1,6 @@
 use rand::{thread_rng, Rng};
 
-pub mod arena;
+pub mod model;
 mod grid;
 
 pub use self::grid::Grid;
@@ -20,7 +20,7 @@ pub enum Direction {
 pub enum GridCell {
     Empty,
     Food,
-    SnakePart(Direction),
+    SnakePart
 }
 
 impl GridCell {

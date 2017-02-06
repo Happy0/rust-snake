@@ -1,20 +1,21 @@
 use model::{CellLocation, Direction, Grid, GridCell};
 
-pub struct Arena {
+pub struct Model {
     grid: Grid,
     snakeHead: CellLocation,
     snakeTail: CellLocation,
+    direction: Direction,
     length: usize,
 }
 
-impl Arena {
-    fn new(length: usize) -> Arena {
+impl Model {
+    fn new(length: usize) -> Model {
         let mut grid = Grid::new(length);
         let startLocation = grid.center();
 
         // Set the snake's initial location on the grid
         if let Some(cell) = grid.get_cell_if_in_range(startLocation) {
-            cell.change_cell(GridCell::SnakePart(Direction::Right));
+            cell.change_cell(GridCell::SnakePart);
         } else {
             panic!("This shouldnae happen...");
         }
@@ -24,10 +25,11 @@ impl Arena {
 
         //add_food_random_cell(&cells);
 
-        Arena {
+        Model {
             grid: grid,
             snakeHead: startLocation,
             snakeTail: startLocation,
+            direction: Direction::Right,
             length: length,
         }
     }
