@@ -29,7 +29,6 @@ impl Grid {
             .flat_map(|row| {
                 row.iter_mut()
                     .filter(|cell| cell.is_empty())
-                    .map(|cell| cell)
             })
             .collect();
 
