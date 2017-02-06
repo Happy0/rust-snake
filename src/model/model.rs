@@ -9,7 +9,7 @@ pub struct Model {
 }
 
 impl Model {
-    fn new(length: usize) -> Model {
+    pub fn new(length: usize) -> Model {
         let mut grid = Grid::new(length);
         let startLocation = grid.center();
 
@@ -32,5 +32,9 @@ impl Model {
             direction: Direction::Right,
             length: length,
         }
+    }
+
+    pub fn change_snake_direction(&mut self, direction: Direction) {
+        self.direction = direction;
     }
 }

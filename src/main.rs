@@ -7,6 +7,7 @@ extern crate rand;
 use piston::window::WindowSettings;
 use piston::event_loop::*;
 use piston::input::*;
+use piston::input::Button::Keyboard;
 use glutin_window::GlutinWindow as Window;
 use opengl_graphics::{GlGraphics, OpenGL};
 
@@ -36,14 +37,27 @@ fn main() {
 
     let mut events = Events::new(EventSettings::new());
 
-    //let mut game_model = game_model::Arena::new(50);
+    let mut game_model = model::Model::new(50);
 
-    loop {
-        let nextFrame: Option<Input> = events.next(&mut window);
-
-        match nextFrame {
-            Some(frame) => println!("test"),
-            None => println!("Dunno what circumstances this would happen under... :P"),
+    while let Some(event) = events.next(&mut window) {
+        match event {
+            Input::Render(_) => {
+                // Nothing yet, because that's the hard part and i'm avoiding it ;x
+            },
+            Input::Press(Keyboard(Key::W)) => {
+                game_model.change_snake_direction(model::Direction::Up)
+            },
+            Input::Press(Keyboard(Key::A)) => {
+                game_model.change_snake_direction(model::Direction::Left)
+            },
+            Input::Press(Keyboard(Key::S)) => {
+                game_model.change_snake_direction(model::Direction::Right)
+            },
+            Input::Press(Keyboard(Key::D)) => {
+                game_model.change_snake_direction(model::Direction::Down)
+            },
+            _ => {
+            }
         }
     }
 }
