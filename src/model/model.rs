@@ -38,6 +38,7 @@ impl Model {
         match moved_into {
             Some(GridCell::Food) => {
                 self.score = self.score + 1;
+                self.grid.grow_snake();
                 false
             }
             Some(GridCell::Empty) => false,

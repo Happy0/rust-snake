@@ -1,5 +1,7 @@
 use model::{CellLocation, Direction, GridCell};
 
+use std::collections::VecDeque;
+
 use rand::Rng;
 
 // Question for Sam...
@@ -7,13 +9,13 @@ extern crate rand;
 
 pub struct Grid {
     cells: Vec<Vec<GridCell>>,
-    snake_locations: Vec<CellLocation>
+    snake_locations: VecDeque<CellLocation>
 }
 
 impl Grid {
     pub fn new(length: usize) -> Grid {
         let mut grid = Grid { cells: vec![vec![GridCell::Empty; length]; length],
-            snake_locations: Vec::new() };
+            snake_locations: VecDeque::new() };
 
         let startLocation = grid.center();
 
@@ -25,7 +27,7 @@ impl Grid {
         }
 
         grid.add_food_random_cell();
-        grid.snake_locations.push(startLocation);
+        grid.snake_locations.push_back(startLocation);
 
         grid
     }
@@ -71,14 +73,28 @@ impl Grid {
             Some(cell_ahead) => {
                 let old_neighbour = cell_ahead.clone();
                 *cell_ahead = GridCell::SnakePart;
+                self.remove_last_tail();
 
                 Some(old_neighbour)
             }
         }
     }
 
+    pub fn grow_snake(&mut self) {
+
+    }
+
     fn get_snake_head(&self) -> Option<CellLocation> {
         self.snake_locations.iter().last().map(|x| *x)
+    }
+
+    fn remove_last_tail(&mut self) {
+        if let Some(last_cell) = self.snake_locations.pop_front() {
+            self.get_cell(last_cell).map(|cell| cell.change_cell(GridCell::Empty));
+        }
+        else {
+            panic!("I dun goofed.");
+        }
     }
 
     /** Get the grid cell if it is in range otherwise return 'Nothing' */
