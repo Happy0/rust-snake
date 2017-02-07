@@ -36,8 +36,10 @@ impl Model {
         }
     }
 
-    pub fn change_snake_direction(&mut self, direction: Direction) {
-        self.direction = direction;
+    pub fn change_snake_direction(&mut self, new_direction: Direction) {
+        if (!self.direction.is_opposite_direction(new_direction)) {
+                self.direction = new_direction;
+        }
     }
 
     pub fn game_tick(&mut self) -> GameOver {
