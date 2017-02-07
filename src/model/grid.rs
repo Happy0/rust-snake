@@ -7,6 +7,7 @@ extern crate rand;
 
 pub struct Grid {
     cells: Vec<Vec<GridCell>>,
+    snake_locations: Vec<CellLocation>
 }
 
 impl Grid {
@@ -43,8 +44,24 @@ impl Grid {
      *  If the snake enters a food cell it is returned before the cell is turned into a snake
      *   cell for example.
      */
-    pub fn move_snake(&mut self, direction: Direction) -> Option<GridCell> {
-        None //todo
+    pub fn move_snake(&mut self, snake_head: CellLocation, direction: Direction) -> Option<GridCell> {
+        let nextCell = snake_head.get_neighbour(direction);
+
+        let neighbour = self.get_cell(nextCell);
+
+        match neighbour {
+            None => None,
+            Some(cell_ahead) => {
+                let old_neighbour = cell_ahead.clone();
+                *cell_ahead = GridCell::SnakePart;
+
+                Some(old_neighbour)
+            }
+        }
+    }
+
+    pub fn remove_tail(&mut self) {
+
     }
 
     /** Get the grid cell if it is in range otherwise return 'Nothing' */

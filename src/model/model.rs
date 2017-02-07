@@ -44,7 +44,7 @@ impl Model {
 
     pub fn game_tick(&mut self) -> GameOver {
         let direction = self.direction;
-        let moved_into: Option<GridCell> = self.grid.move_snake(direction);
+        let moved_into: Option<GridCell> = self.grid.move_snake(self.snakeHead, direction);
 
         // If the snake moves into the wall or itself it is game over
         match moved_into {

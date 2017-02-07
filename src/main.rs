@@ -43,6 +43,14 @@ fn main() {
         match event {
             Input::Render(_) => {
                 // Nothing yet, because that's the hard part and i'm avoiding it ;x
+            },
+            Input::Update(_) => {
+                let game_over: bool = game_model.game_tick();
+
+                if (game_over) {
+                    // Just restart the game for now
+                    game_model = model::Model::new(50);
+                }
             }
             Input::Press(Keyboard(Key::W)) => {
                 game_model.change_snake_direction(model::Direction::Up)
