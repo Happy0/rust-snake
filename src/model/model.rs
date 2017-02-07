@@ -38,7 +38,7 @@ impl Model {
 
     pub fn change_snake_direction(&mut self, new_direction: Direction) {
         if (!self.direction.is_opposite_direction(new_direction)) {
-                self.direction = new_direction;
+            self.direction = new_direction;
         }
     }
 
@@ -46,12 +46,14 @@ impl Model {
         let direction = self.direction;
         let moved_into: Option<GridCell> = self.grid.move_snake(direction);
 
+        // If the snake moves into the wall or itself it is game over
         match moved_into {
             Some(GridCell::Food) => {
                 self.score = self.score + 1;
                 false
             }
-            Some(_) => false,
+            Some(GridCell::Empty) => false,
+            Some(GridCell::SnakePart) => true,
             None => true
         }
 
