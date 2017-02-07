@@ -39,6 +39,7 @@ impl Model {
             Some(GridCell::Food) => {
                 self.score = self.score + 1;
                 self.grid.grow_snake();
+                self.grid.add_food_random_cell();
                 false
             }
             Some(GridCell::Empty) => false,
