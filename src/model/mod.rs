@@ -54,3 +54,14 @@ pub struct CellLocation {
     x: usize,
     y: usize,
 }
+
+impl CellLocation {
+    pub fn get_neighbour(&self, direction: Direction) -> CellLocation {
+        match direction {
+            Direction::Up => CellLocation {x: self.x + 1, y: self.y},
+            Direction::Down => CellLocation {x: self.x - 1, y: self.y},
+            Direction::Left => CellLocation {x: self.x, y: self.y - 1},
+            Direction::Right => CellLocation {x: self.x, y: self.y + 1},
+        }
+    }
+}
