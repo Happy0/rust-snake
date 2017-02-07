@@ -12,7 +12,22 @@ pub struct Grid {
 
 impl Grid {
     pub fn new(length: usize) -> Grid {
-        Grid { cells: vec![vec![GridCell::Empty; length]; length] }
+        let mut grid = Grid { cells: vec![vec![GridCell::Empty; length]; length],
+            snake_locations: Vec::new() };
+
+        let startLocation = grid.center();
+
+        // Set the snake's initial location on the grid
+        if let Some(cell) = grid.get_cell(startLocation) {
+            cell.change_cell(GridCell::SnakePart);
+        } else {
+            panic!("This shouldnae happen...");
+        }
+
+        grid.add_food_random_cell();
+        grid.snake_locations.push(startLocation);
+
+        grid
     }
 
     pub fn center(&self) -> CellLocation {
@@ -44,7 +59,9 @@ impl Grid {
      *  If the snake enters a food cell it is returned before the cell is turned into a snake
      *   cell for example.
      */
-    pub fn move_snake(&mut self, snake_head: CellLocation, direction: Direction) -> Option<GridCell> {
+    pub fn move_snake(&mut self, direction: Direction) -> Option<GridCell> {
+        let snake_head = self.get_snake_head().expect("I must've done goofed hard if this fails");
+
         let nextCell = snake_head.get_neighbour(direction);
 
         let neighbour = self.get_cell(nextCell);
@@ -60,12 +77,12 @@ impl Grid {
         }
     }
 
-    pub fn remove_tail(&mut self) {
-
+    fn get_snake_head(&self) -> Option<CellLocation> {
+        self.snake_locations.iter().last().map(|x| *x)
     }
 
     /** Get the grid cell if it is in range otherwise return 'Nothing' */
-    pub fn get_cell(&mut self, location: CellLocation) -> Option<&mut GridCell> {
+    fn get_cell(&mut self, location: CellLocation) -> Option<&mut GridCell> {
         let CellLocation { x, y } = location;
         self.cells.get_mut(x).and_then(|row| row.get_mut(y))
     }

@@ -4,8 +4,6 @@ pub type GameOver = bool;
 
 pub struct Model {
     grid: Grid,
-    snakeHead: CellLocation,
-    snakeTail: CellLocation,
     direction: Direction,
     length: usize,
     score: i32
@@ -14,14 +12,6 @@ pub struct Model {
 impl Model {
     pub fn new(length: usize) -> Model {
         let mut grid = Grid::new(length);
-        let startLocation = grid.center();
-
-        // Set the snake's initial location on the grid
-        if let Some(cell) = grid.get_cell(startLocation) {
-            cell.change_cell(GridCell::SnakePart);
-        } else {
-            panic!("This shouldnae happen...");
-        }
 
         // Add the first bit of food to the grid
         grid.add_food_random_cell();
@@ -29,8 +19,6 @@ impl Model {
         Model {
             grid: grid,
             length: length,
-            snakeHead: startLocation,
-            snakeTail: startLocation,
             direction: Direction::Right,
             score: 0
         }
@@ -44,7 +32,7 @@ impl Model {
 
     pub fn game_tick(&mut self) -> GameOver {
         let direction = self.direction;
-        let moved_into: Option<GridCell> = self.grid.move_snake(self.snakeHead, direction);
+        let moved_into: Option<GridCell> = self.grid.move_snake(direction);
 
         // If the snake moves into the wall or itself it is game over
         match moved_into {
