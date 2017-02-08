@@ -85,10 +85,6 @@ impl Grid {
         }
     }
 
-    pub fn grow_snake(&mut self) {
-
-    }
-
     fn get_snake_head(&self) -> Option<CellLocation> {
         self.snake_locations.iter().last().map(|x| *x)
     }
