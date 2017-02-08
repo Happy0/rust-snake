@@ -79,11 +79,11 @@ impl Grid {
             }
         };
 
-        previous.and_then(|p| {
+        previous.map(|p| {
             if !p.is_food() {
                 self.remove_last_tail();
             }
-            Some(p)
+            p
         })
     }
 
