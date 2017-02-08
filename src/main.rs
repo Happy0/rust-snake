@@ -43,7 +43,7 @@ fn main() {
         match event {
             Input::Render(_) => {
                 // Nothing yet, because that's the hard part and i'm avoiding it ;x
-            },
+            }
             Input::Update(_) => {
                 let game_over: bool = game_model.game_tick();
 

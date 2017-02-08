@@ -21,7 +21,7 @@ impl Direction {
             Direction::Up => other == Direction::Down,
             Direction::Down => other == Direction::Up,
             Direction::Left => other == Direction::Right,
-            Direction::Right => other == Direction::Left
+            Direction::Right => other == Direction::Left,
         }
     }
 }
@@ -50,7 +50,7 @@ impl GridCell {
     pub fn is_food(&self) -> bool {
         match *self {
             GridCell::Food => true,
-            _ => false
+            _ => false,
         }
     }
 }
@@ -65,10 +65,30 @@ pub struct CellLocation {
 impl CellLocation {
     pub fn get_neighbour(&self, direction: Direction) -> CellLocation {
         match direction {
-            Direction::Up => CellLocation {x: self.x + 1, y: self.y},
-            Direction::Down => CellLocation {x: self.x - 1, y: self.y},
-            Direction::Left => CellLocation {x: self.x, y: self.y - 1},
-            Direction::Right => CellLocation {x: self.x, y: self.y + 1},
+            Direction::Up => {
+                CellLocation {
+                    x: self.x + 1,
+                    y: self.y,
+                }
+            }
+            Direction::Down => {
+                CellLocation {
+                    x: self.x - 1,
+                    y: self.y,
+                }
+            }
+            Direction::Left => {
+                CellLocation {
+                    x: self.x,
+                    y: self.y - 1,
+                }
+            }
+            Direction::Right => {
+                CellLocation {
+                    x: self.x,
+                    y: self.y + 1,
+                }
+            }
         }
     }
 }
