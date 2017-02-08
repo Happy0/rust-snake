@@ -46,6 +46,13 @@ impl GridCell {
             _ => false,
         }
     }
+
+    pub fn is_food(&self) -> bool {
+        match *self {
+            GridCell::Food => true,
+            _ => false
+        }
+    }
 }
 
 // A cell locaiton in the arena

@@ -73,7 +73,12 @@ impl Grid {
             Some(cell_ahead) => {
                 let old_neighbour = cell_ahead.clone();
                 *cell_ahead = GridCell::SnakePart;
-                self.remove_last_tail();
+
+                if !old_neighbour.is_food() {
+                    // We only move the tail forward if the snake didn't each - otherwise,
+                    // not removing the tail makes the snake grow.
+                    self.remove_last_tail();
+                }
 
                 Some(old_neighbour)
             }
