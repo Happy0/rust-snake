@@ -6,7 +6,7 @@ pub struct Model {
     grid: Grid,
     direction: Direction,
     length: usize,
-    score: i32
+    score: i32,
 }
 
 impl Model {
@@ -20,7 +20,7 @@ impl Model {
             grid: grid,
             length: length,
             direction: Direction::Right,
-            score: 0
+            score: 0,
         }
     }
 
@@ -43,7 +43,7 @@ impl Model {
             }
             Some(GridCell::Empty) => false,
             Some(GridCell::SnakePart) => true,
-            None => true
+            None => true,
         }
 
 

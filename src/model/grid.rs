@@ -9,13 +9,15 @@ extern crate rand;
 
 pub struct Grid {
     cells: Vec<Vec<GridCell>>,
-    snake_locations: VecDeque<CellLocation>
+    snake_locations: VecDeque<CellLocation>,
 }
 
 impl Grid {
     pub fn new(length: usize) -> Grid {
-        let mut grid = Grid { cells: vec![vec![GridCell::Empty; length]; length],
-            snake_locations: VecDeque::new() };
+        let mut grid = Grid {
+            cells: vec![vec![GridCell::Empty; length]; length],
+            snake_locations: VecDeque::new(),
+        };
 
         let startLocation = grid.center();
 
@@ -66,23 +68,23 @@ impl Grid {
 
         let nextCell = snake_head.get_neighbour(direction);
 
-        let neighbour = self.get_cell(nextCell);
-
-        match neighbour {
+        let previous = match self.get_cell(nextCell) {
             None => None,
             Some(cell_ahead) => {
                 let old_neighbour = cell_ahead.clone();
                 *cell_ahead = GridCell::SnakePart;
 
-                if !old_neighbour.is_food() {
-                    // We only move the tail forward if the snake didn't each - otherwise,
-                    // not removing the tail makes the snake grow.
-                    self.remove_last_tail();
-                }
 
                 Some(old_neighbour)
             }
-        }
+        };
+
+        previous.and_then(|p| {
+            if !p.is_food() {
+                self.remove_last_tail();
+            }
+            Some(p)
+        })
     }
 
     fn get_snake_head(&self) -> Option<CellLocation> {
@@ -92,8 +94,7 @@ impl Grid {
     fn remove_last_tail(&mut self) {
         if let Some(last_cell) = self.snake_locations.pop_front() {
             self.get_cell(last_cell).map(|cell| cell.change_cell(GridCell::Empty));
-        }
-        else {
+        } else {
             panic!("I dun goofed.");
         }
     }
